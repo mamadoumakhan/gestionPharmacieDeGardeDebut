@@ -1,4 +1,9 @@
 import 'package:flutter/material.dart';
+import 'dart:async';
+import 'dart:convert';
+import 'dart:io';
+
+import 'package:http/http.dart' as http;
 // import 'package:http/http.dart' as http;
 
 class InscriptionPage extends StatefulWidget {
@@ -134,3 +139,38 @@ class _InscriptionPageState extends State<InscriptionPage> {
 //     },
 //   );
 // }
+
+class User {
+  final int id;
+  final String name;
+  final String email;
+  final String password;
+  
+  User(
+    this.id,
+    this.name,
+    this.email,
+    this.password,
+  );
+  factory User.fromMap(Map<String, dynamic> json) {
+    return User(json['id'], json['name'], json['email'], json['password']);
+  }
+  factory User.fromJson(Map<String, dynamic> json) {
+    return User(json['id'], json['name'], json['email'], json['password']);
+  }
+}
+
+
+
+Future<User> fetchUser() async {
+  final response = await http.get(
+    Uri.parse('localhost:8000/api'),
+    // Send authorization headers to the backend.
+    headers: {
+      HttpHeaders.authorizationHeader: 'Basic your_api_token_here',
+    },
+  );
+  final responseJson = jsonDecode(response.body);
+
+  return User.fromJson(responseJson);
+}

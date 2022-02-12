@@ -1,4 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:gestion_pharmacie_de_garde/screens/loading.dart';
+import 'package:http/http.dart';
+import 'package:responsive_sizer/responsive_sizer.dart';
 import 'pageAuth/inscription.dart';
 import 'pageCRUD/ajoutCategorie.dart';
 import 'pageCRUD/ajoutFournisseur.dart';
@@ -37,15 +40,16 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
+      debugShowCheckedModeBanner: false,
       title: 'Projet Classe',
       theme: ThemeData(
         primarySwatch: Colors.green,
       ),
       // home: AjoutFournisseurPage(),
-      home: MyHomePage(
-        title: 'pade d\'acueil',
-      ),
-      //home: const MyHomePage(title: 'Flutter Demo Home Page'),
+      // home: Loading(
+      //   // title: 'pade d\'acueil',
+      // ),
+      home: const MyHomePage(title: 'Flutter Demo Home Page'),
     );
   }
 }
@@ -651,3 +655,5 @@ class MesClients extends StatelessWidget {
     return Center(child: Text("Client"));
   }
 }
+
+
